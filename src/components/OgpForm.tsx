@@ -74,14 +74,14 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 	};
 
 	return (
-		<div className="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-			<h2 className="text-xl font-bold text-gray-900">OGP設定</h2>
+		<div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+			<h2 className="text-lg font-bold text-gray-900">OGP設定</h2>
 
 			{/* サイト名 */}
 			<div>
 				<label
 					htmlFor={siteNameId}
-					className="mb-2 block text-sm font-medium text-gray-700"
+					className="mb-1 block text-sm font-medium text-gray-700"
 				>
 					サイト名
 				</label>
@@ -90,7 +90,7 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 					type="text"
 					value={config.siteName}
 					onChange={handleTextChange("siteName")}
-					className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="サイト名"
 				/>
 			</div>
@@ -99,7 +99,7 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 			<div>
 				<label
 					htmlFor={articleTitleId}
-					className="mb-2 block text-sm font-medium text-gray-700"
+					className="mb-1 block text-sm font-medium text-gray-700"
 				>
 					記事タイトル
 				</label>
@@ -107,8 +107,8 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 					id={articleTitleId}
 					value={config.articleTitle}
 					onChange={handleTextChange("articleTitle")}
-					rows={3}
-					className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					rows={2}
+					className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="例: metaタグ、OGP設定"
 				/>
 			</div>
@@ -117,7 +117,7 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 			<div>
 				<label
 					htmlFor={authorNameId}
-					className="mb-2 block text-sm font-medium text-gray-700"
+					className="mb-1 block text-sm font-medium text-gray-700"
 				>
 					著者名
 				</label>
@@ -126,7 +126,7 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 					type="text"
 					value={config.authorName}
 					onChange={handleTextChange("authorName")}
-					className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="例: saya"
 				/>
 			</div>
@@ -135,23 +135,23 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 			<div>
 				<label
 					htmlFor={authorIconId}
-					className="mb-2 block text-sm font-medium text-gray-700"
+					className="mb-1 block text-sm font-medium text-gray-700"
 				>
 					著者アイコン
 				</label>
-				<div className="flex items-center gap-4">
+				<div className="flex items-center gap-3">
 					{/* アイコンプレビュー */}
 					<img
 						src={config.authorIconUrl || "/default_icon512.png"}
 						alt="著者アイコン"
-						className="size-16 rounded-full border-2 border-gray-200 object-cover"
+						className="size-12 rounded-full border-2 border-gray-200 object-cover"
 					/>
 
 					{/* ファイル選択ボタン */}
 					<button
 						type="button"
 						onClick={handleFileButtonClick}
-						className="flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
 					>
 						<Upload className="size-4" />
 						ファイルを選択
@@ -173,7 +173,7 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 			<div>
 				<label
 					htmlFor={sizePresetId}
-					className="mb-2 block text-sm font-medium text-gray-700"
+					className="mb-1 block text-sm font-medium text-gray-700"
 				>
 					画像サイズ
 				</label>
@@ -181,7 +181,7 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 					id={sizePresetId}
 					value={config.selectedSize}
 					onChange={handleSizeChange}
-					className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
 				>
 					{Object.entries(OGP_SIZE_PRESETS).map(([key, preset]) => (
 						<option key={key} value={preset.preset}>
