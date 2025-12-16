@@ -19,7 +19,7 @@ function App() {
 	// OGP設定の状態管理（初期値を設定）
 	const [config, setConfig] = useState<OgpConfig>({
 		siteName: "はなしのタネ",
-		articleTitle: "metaタグ、OGP設定",
+		articleTitle: "記事タイトル",
 		authorName: "たねのぶ",
 		authorIconUrl: "/default_icon512.png",
 		selectedSize: "standard",

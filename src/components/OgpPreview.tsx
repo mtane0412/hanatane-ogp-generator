@@ -147,21 +147,10 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 
 	return (
 		<div className="space-y-4">
-			<div className="flex items-center justify-between">
-				<h2 className="text-lg font-bold text-gray-900">プレビュー</h2>
-				<button
-					type="button"
-					onClick={handleDownload}
-					disabled={isDownloading}
-					className="flex items-center gap-2 rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
-				>
-					<Download className="size-4" />
-					{isDownloading ? "ダウンロード中..." : "画像をダウンロード"}
-				</button>
-			</div>
+			<h2 className="text-lg font-bold text-gray-900">プレビュー</h2>
 
 			{/* プレビュー表示エリア */}
-			<div className="overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-4">
+			<div className="overflow-hidden rounded-lg bg-gray-50 p-4">
 				<div className="flex justify-center">
 					{/* 縮小表示用ラッパー */}
 					<div
@@ -206,9 +195,20 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 				</div>
 			</div>
 
-			{/* サイズ情報 */}
-			<div className="text-center text-sm text-gray-500">
-				画像サイズ: {width} x {height}px
+			{/* サイズ情報とダウンロードボタン */}
+			<div className="space-y-3">
+				<div className="text-center text-sm text-gray-500">
+					画像サイズ: {width} x {height}px
+				</div>
+				<button
+					type="button"
+					onClick={handleDownload}
+					disabled={isDownloading}
+					className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-base font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+				>
+					<Download className="size-5" />
+					{isDownloading ? "ダウンロード中..." : "画像をダウンロード"}
+				</button>
 			</div>
 		</div>
 	);

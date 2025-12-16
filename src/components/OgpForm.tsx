@@ -1,13 +1,13 @@
 /**
  * OGP設定入力フォームコンポーネント
  *
- * ユーザーがサイト名、記事タイトル、著者名、著者アイコン、画像サイズを入力するためのフォーム。
+ * ユーザーがサイト名、記事タイトル、著者名、著者アイコン、背景カラーを入力するためのフォーム。
  */
 
 import { Upload } from "lucide-react";
 import { useId, useRef } from "react";
-import type { OgpConfig, OgpSizePreset, GradientPreset } from "@/types/ogp";
-import { OGP_SIZE_PRESETS, GRADIENT_PRESETS } from "@/types/ogp";
+import type { OgpConfig, GradientPreset } from "@/types/ogp";
+import { GRADIENT_PRESETS } from "@/types/ogp";
 
 interface OgpFormProps {
 	/** 現在のOGP設定 */
@@ -27,7 +27,6 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 	const articleTitleId = useId();
 	const authorNameId = useId();
 	const authorIconId = useId();
-	const sizePresetId = useId();
 
 	// ファイル入力のref（プログラムから開くため）
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -40,14 +39,6 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 		(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 			onChange({ ...config, [field]: e.target.value });
 		};
-
-	/**
-	 * サイズプリセット選択の変更ハンドラ
-	 */
-	const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const selectedSize = e.target.value as OgpSizePreset;
-		onChange({ ...config, selectedSize });
-	};
 
 	/**
 	 * グラデーションカラー選択の変更ハンドラ
@@ -115,7 +106,7 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 					onChange={handleTextChange("articleTitle")}
 					rows={2}
 					className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-					placeholder="例: metaタグ、OGP設定"
+					placeholder="例: 記事タイトル"
 				/>
 			</div>
 
@@ -173,28 +164,6 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 						className="hidden"
 					/>
 				</div>
-			</div>
-
-			{/* 画像サイズ選択 */}
-			<div>
-				<label
-					htmlFor={sizePresetId}
-					className="mb-1 block text-sm font-medium text-gray-700"
-				>
-					画像サイズ
-				</label>
-				<select
-					id={sizePresetId}
-					value={config.selectedSize}
-					onChange={handleSizeChange}
-					className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-				>
-					{Object.entries(OGP_SIZE_PRESETS).map(([key, preset]) => (
-						<option key={key} value={preset.preset}>
-							{preset.label}
-						</option>
-					))}
-				</select>
 			</div>
 
 			{/* 背景カラー選択 */}
