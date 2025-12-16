@@ -32,7 +32,7 @@ function App() {
 				{/* ページタイトル */}
 				<div className="mb-8 text-center">
 					<h1 className="text-4xl font-bold text-gray-900">
-						はなしのタネ OGPジェネレーター
+						はなしのタネOGP作る君
 					</h1>
 					<p className="mt-2 text-gray-600">
 						ブログ用のOGP画像を簡単に作成・ダウンロードできます。主に自分用ですがご自由にお使いください。
