@@ -99,48 +99,54 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 								transform: `scale(${scale})`,
 								transformOrigin: "top left",
 							}}
-							className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100"
+							className="relative overflow-hidden bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500"
 						>
-							{/* 背景装飾 */}
-							<div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(99,102,241,0.1),transparent_50%)]" />
-							<div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(59,130,246,0.1),transparent_50%)]" />
+							{/* 背景装飾 - 動的なグラデーション効果 */}
+							<div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(236,72,153,0.3),transparent_50%)]" />
+							<div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.4),transparent_60%)]" />
+							<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.2),transparent_70%)]" />
 
-							{/* コンテンツエリア */}
-							<div className="relative flex h-full flex-col justify-between p-16">
-								{/* 記事タイトル */}
-								<div className="flex-1">
-									<h1
-										className="text-6xl font-bold leading-tight text-gray-900"
-										style={{
-											wordBreak: "break-word",
-											overflowWrap: "break-word",
-										}}
-									>
-										{config.articleTitle || "記事タイトル"}
-									</h1>
-								</div>
-
-								{/* 下部エリア: 著者情報とサイト名 */}
-								<div className="flex items-end justify-between">
-									{/* 著者情報 */}
-									<div className="flex items-center gap-6">
-										{/* 著者アイコン */}
-										<img
-											src={config.authorIconUrl || "/default_icon512.png"}
-											alt={config.authorName}
-											className="size-24 rounded-full border-4 border-white object-cover shadow-lg"
-										/>
-
-										{/* 著者名 */}
-										<span className="text-3xl font-semibold text-gray-700">
-											{config.authorName || "著者名"}
-										</span>
+							{/* 白い角丸コンテンツボックス */}
+							<div className="relative flex h-full items-center justify-center p-16">
+								<div
+									className="flex h-full w-full flex-col justify-between rounded-3xl bg-white p-12 shadow-2xl"
+									style={{ fontFamily: '"LINE Seed JP", sans-serif' }}
+								>
+									{/* 記事タイトル */}
+									<div className="flex-1">
+										<h1
+											className="text-6xl font-bold leading-tight text-gray-900"
+											style={{
+												wordBreak: "break-word",
+												overflowWrap: "break-word",
+											}}
+										>
+											{config.articleTitle || "記事タイトル"}
+										</h1>
 									</div>
 
-									{/* サイト名 */}
-									<div className="text-right">
-										<div className="text-4xl font-bold text-blue-600">
-											{config.siteName || "サイト名"}
+									{/* 下部エリア: 著者情報とサイト名 */}
+									<div className="flex items-end justify-between">
+										{/* 著者情報 */}
+										<div className="flex items-center gap-6">
+											{/* 著者アイコン */}
+											<img
+												src={config.authorIconUrl || "/default_icon512.png"}
+												alt={config.authorName}
+												className="size-24 rounded-full border-4 border-gray-100 object-cover shadow-md"
+											/>
+
+											{/* 著者名 */}
+											<span className="text-3xl font-semibold text-gray-700">
+												{config.authorName || "著者名"}
+											</span>
+										</div>
+
+										{/* サイト名 */}
+										<div className="text-right">
+											<div className="text-4xl font-bold text-purple-600">
+												{config.siteName || "サイト名"}
+											</div>
 										</div>
 									</div>
 								</div>
