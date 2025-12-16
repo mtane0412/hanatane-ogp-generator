@@ -3,11 +3,13 @@
  *
  * OGP画像のリアルタイムプレビューを表示し、ダウンロード機能を提供します。
  * html-to-imageライブラリを使用してHTML要素を画像に変換します。
+ * BudouXを使用して日本語テキストの自然な改行を実現します。
  */
 
 import { Download } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import { toPng } from "html-to-image";
+import { loadDefaultJapaneseParser } from "budoux";
 import type { OgpConfig } from "@/types/ogp";
 import { getOgpSize } from "@/types/ogp";
 
@@ -30,6 +32,20 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 
 	// 設定から画像サイズを取得
 	const { width, height } = getOgpSize(config);
+
+	/**
+	 * BudouXを使用して日本語テキストを自然な改行位置で分割
+	 * 改行位置にwbrタグを挿入することで、ブラウザが適切に改行できるようにする
+	 */
+	const formattedTitle = useMemo(() => {
+		const title = config.articleTitle || "記事タイトル";
+		const parser = loadDefaultJapaneseParser();
+		// BudouXでテキストを分割し、各フレーズをspanで囲み、間にwbrを挿入
+		const chunks = parser.parse(title);
+		return chunks
+			.map((chunk) => `<span style="display:inline-block">${chunk}</span>`)
+			.join("<wbr>");
+	}, [config.articleTitle]);
 
 	/**
 	 * OGP画像をPNGとしてダウンロード
@@ -120,9 +136,9 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 												wordBreak: "break-word",
 												overflowWrap: "break-word",
 											}}
-										>
-											{config.articleTitle || "記事タイトル"}
-										</h1>
+											// biome-ignore lint/security/noDangerouslySetInnerHtml: BudouXで生成された安全なHTMLを使用
+											dangerouslySetInnerHTML={{ __html: formattedTitle }}
+										/>
 									</div>
 
 									{/* 下部エリア: 著者情報とサイト名 */}
