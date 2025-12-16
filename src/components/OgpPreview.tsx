@@ -35,16 +35,24 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 
 	/**
 	 * BudouXを使用して日本語テキストを自然な改行位置で分割
+	 * ユーザーが入力した改行（\n）を<br>タグに変換し、
 	 * 改行位置にwbrタグを挿入することで、ブラウザが適切に改行できるようにする
 	 */
 	const formattedTitle = useMemo(() => {
 		const title = config.articleTitle || "記事タイトル";
 		const parser = loadDefaultJapaneseParser();
-		// BudouXでテキストを分割し、各フレーズをspanで囲み、間にwbrを挿入
-		const chunks = parser.parse(title);
-		return chunks
-			.map((chunk) => `<span style="display:inline-block">${chunk}</span>`)
-			.join("<wbr>");
+
+		// 改行文字で分割し、各行をBudouXで処理してから<br>で結合
+		const lines = title.split("\n");
+		return lines
+			.map((line) => {
+				// 各行をBudouXで分割し、各フレーズをspanで囲み、間にwbrを挿入
+				const chunks = parser.parse(line);
+				return chunks
+					.map((chunk) => `<span style="display:inline-block">${chunk}</span>`)
+					.join("<wbr>");
+			})
+			.join("<br>");
 	}, [config.articleTitle]);
 
 	/**
