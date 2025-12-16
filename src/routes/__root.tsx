@@ -17,6 +17,51 @@ export const Route = createRootRoute({
 			{
 				title: "OGP画像作成 - はなしのタネ",
 			},
+			{
+				name: "description",
+				content:
+					"ブログ用のOGP画像を簡単に作成・ダウンロードできるツールです。記事タイトルや著者情報を入力して、カスタムOGP画像を生成できます。",
+			},
+			// Open Graph Protocol
+			{
+				property: "og:title",
+				content: "OGP画像作成 - はなしのタネ",
+			},
+			{
+				property: "og:description",
+				content:
+					"ブログ用のOGP画像を簡単に作成・ダウンロードできるツールです。記事タイトルや著者情報を入力して、カスタムOGP画像を生成できます。",
+			},
+			{
+				property: "og:image",
+				content: "/ogp.png",
+			},
+			{
+				property: "og:type",
+				content: "website",
+			},
+			{
+				property: "og:site_name",
+				content: "はなしのタネ",
+			},
+			// Twitter Card
+			{
+				name: "twitter:card",
+				content: "summary_large_image",
+			},
+			{
+				name: "twitter:title",
+				content: "OGP画像作成 - はなしのタネ",
+			},
+			{
+				name: "twitter:description",
+				content:
+					"ブログ用のOGP画像を簡単に作成・ダウンロードできるツールです。記事タイトルや著者情報を入力して、カスタムOGP画像を生成できます。",
+			},
+			{
+				name: "twitter:image",
+				content: "/ogp.png",
+			},
 		],
 		links: [
 			{
