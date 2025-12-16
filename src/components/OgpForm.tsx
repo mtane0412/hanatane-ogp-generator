@@ -141,13 +141,11 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 				</label>
 				<div className="flex items-center gap-4">
 					{/* アイコンプレビュー */}
-					{config.authorIconUrl && (
-						<img
-							src={config.authorIconUrl}
-							alt="著者アイコン"
-							className="size-16 rounded-full border-2 border-gray-200 object-cover"
-						/>
-					)}
+					<img
+						src={config.authorIconUrl || "/default_icon512.png"}
+						alt="著者アイコン"
+						className="size-16 rounded-full border-2 border-gray-200 object-cover"
+					/>
 
 					{/* ファイル選択ボタン */}
 					<button

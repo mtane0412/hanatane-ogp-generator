@@ -110,17 +110,11 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 								{/* 著者情報 */}
 								<div className="flex items-center gap-6">
 									{/* 著者アイコン */}
-									{config.authorIconUrl ? (
-										<img
-											src={config.authorIconUrl}
-											alt={config.authorName}
-											className="size-24 rounded-full border-4 border-white object-cover shadow-lg"
-										/>
-									) : (
-										<div className="flex size-24 items-center justify-center rounded-full border-4 border-white bg-gray-300 shadow-lg">
-											<span className="text-4xl text-gray-600">?</span>
-										</div>
-									)}
+									<img
+										src={config.authorIconUrl || "/default_icon512.png"}
+										alt={config.authorName}
+										className="size-24 rounded-full border-4 border-white object-cover shadow-lg"
+									/>
 
 									{/* 著者名 */}
 									<span className="text-3xl font-semibold text-gray-700">

@@ -21,7 +21,7 @@ function App() {
 		siteName: "はなしのタネ",
 		articleTitle: "metaタグ、OGP設定",
 		authorName: "たねのぶ",
-		authorIconUrl: "",
+		authorIconUrl: "/default_icon512.png",
 		selectedSize: "standard",
 	});
 
