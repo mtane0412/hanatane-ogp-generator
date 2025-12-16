@@ -23,6 +23,7 @@ function App() {
 		authorName: "たねのぶ",
 		authorIconUrl: "/default_icon512.png",
 		selectedSize: "standard",
+		gradientColor: "purple",
 	});
 
 	return (

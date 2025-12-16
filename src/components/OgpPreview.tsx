@@ -11,7 +11,7 @@ import { useRef, useState, useMemo } from "react";
 import { toPng } from "html-to-image";
 import { loadDefaultJapaneseParser } from "budoux";
 import type { OgpConfig } from "@/types/ogp";
-import { getOgpSize } from "@/types/ogp";
+import { getOgpSize, GRADIENT_PRESETS } from "@/types/ogp";
 
 interface OgpPreviewProps {
 	/** OGP設定 */
@@ -81,13 +81,21 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 	const previewWidth = width * scale;
 	const previewHeight = height * scale;
 
+	// 選択されたグラデーションカラー設定を取得
+	const gradientConfig = GRADIENT_PRESETS[config.gradientColor];
+
 	// OGP画像のコンテンツをレンダリングする関数
 	const renderOgpContent = () => (
-		<div className="relative overflow-hidden bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 h-full">
+		<div
+			className={`relative overflow-hidden h-full ${gradientConfig.baseGradient}`}
+		>
 			{/* 背景装飾 - 動的なグラデーション効果 */}
-			<div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(236,72,153,0.3),transparent_50%)]" />
-			<div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.4),transparent_60%)]" />
-			<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.2),transparent_70%)]" />
+			{gradientConfig.decorations.map((decoration) => (
+				<div
+					key={`${config.gradientColor}-${decoration}`}
+					className={`absolute inset-0 ${decoration}`}
+				/>
+			))}
 
 			{/* 白い角丸コンテンツボックス */}
 			<div className="relative flex h-full items-center justify-center p-16">
@@ -127,7 +135,7 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 
 						{/* サイト名 */}
 						<div className="text-right">
-							<div className="text-4xl font-bold text-purple-600">
+							<div className="text-4xl font-bold text-gray-700">
 								{config.siteName || "サイト名"}
 							</div>
 						</div>
@@ -190,7 +198,10 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 					zIndex: -1,
 				}}
 			>
-				<div ref={previewRef} style={{ width: `${width}px`, height: `${height}px` }}>
+				<div
+					ref={previewRef}
+					style={{ width: `${width}px`, height: `${height}px` }}
+				>
 					{renderOgpContent()}
 				</div>
 			</div>

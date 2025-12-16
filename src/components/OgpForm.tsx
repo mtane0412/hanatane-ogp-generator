@@ -6,8 +6,8 @@
 
 import { Upload } from "lucide-react";
 import { useId, useRef } from "react";
-import type { OgpConfig, OgpSizePreset } from "@/types/ogp";
-import { OGP_SIZE_PRESETS } from "@/types/ogp";
+import type { OgpConfig, OgpSizePreset, GradientPreset } from "@/types/ogp";
+import { OGP_SIZE_PRESETS, GRADIENT_PRESETS } from "@/types/ogp";
 
 interface OgpFormProps {
 	/** 現在のOGP設定 */
@@ -49,6 +49,12 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 		onChange({ ...config, selectedSize });
 	};
 
+	/**
+	 * グラデーションカラー選択の変更ハンドラ
+	 */
+	const handleGradientChange = (preset: GradientPreset) => {
+		onChange({ ...config, gradientColor: preset });
+	};
 
 	/**
 	 * ファイル選択ボタンのクリックハンドラ
@@ -189,6 +195,62 @@ export default function OgpForm({ config, onChange }: OgpFormProps) {
 						</option>
 					))}
 				</select>
+			</div>
+
+			{/* 背景カラー選択 */}
+			<div>
+				<div className="mb-2 block text-sm font-medium text-gray-700">
+					背景カラー
+				</div>
+				<div className="flex flex-wrap gap-2">
+					{Object.values(GRADIENT_PRESETS).map((gradient) => (
+						<button
+							key={gradient.preset}
+							type="button"
+							onClick={() => handleGradientChange(gradient.preset)}
+							className={`relative size-10 overflow-hidden rounded-full transition-all ${
+								config.gradientColor === gradient.preset
+									? "ring-2 ring-blue-500 ring-offset-2"
+									: "ring-1 ring-gray-200 hover:ring-gray-300"
+							}`}
+							aria-label={`${gradient.label}カラーを選択`}
+						>
+							{/* グラデーション背景 */}
+							<div className={`absolute inset-0 ${gradient.baseGradient}`}>
+								{/* 装飾用のラジアルグラデーション */}
+								{gradient.decorations.map((decoration, decorationIndex) => (
+									<div
+										key={`${gradient.preset}-decoration-${decorationIndex}`}
+										className={`absolute inset-0 ${decoration}`}
+									/>
+								))}
+							</div>
+
+							{/* 選択状態のチェックマーク */}
+							{config.gradientColor === gradient.preset && (
+								<div className="absolute inset-0 flex items-center justify-center">
+									<div className="rounded-full bg-white/90 p-0.5">
+										<svg
+											className="size-3 text-blue-600"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+											aria-hidden="true"
+										>
+											<title>選択中</title>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={3}
+												d="M5 13l4 4L19 7"
+											/>
+										</svg>
+									</div>
+								</div>
+							)}
+						</button>
+					))}
+				</div>
 			</div>
 		</div>
 	);
