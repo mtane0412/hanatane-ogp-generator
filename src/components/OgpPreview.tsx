@@ -59,7 +59,7 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 			const dataUrl = await toPng(previewRef.current, {
 				width,
 				height,
-				pixelRatio: 2, // 高解像度出力（Retina対応）
+				pixelRatio: 1, // 設定されたサイズで出力
 			});
 
 			// ダウンロードリンクを作成してクリック
@@ -80,6 +80,62 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 	const scale = Math.min(maxPreviewWidth / width, 1);
 	const previewWidth = width * scale;
 	const previewHeight = height * scale;
+
+	// OGP画像のコンテンツをレンダリングする関数
+	const renderOgpContent = () => (
+		<div className="relative overflow-hidden bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 h-full">
+			{/* 背景装飾 - 動的なグラデーション効果 */}
+			<div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(236,72,153,0.3),transparent_50%)]" />
+			<div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.4),transparent_60%)]" />
+			<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.2),transparent_70%)]" />
+
+			{/* 白い角丸コンテンツボックス */}
+			<div className="relative flex h-full items-center justify-center p-16">
+				<div
+					className="flex h-full w-full flex-col justify-between rounded-3xl bg-white p-12 shadow-2xl"
+					style={{ fontFamily: '"LINE Seed JP", sans-serif' }}
+				>
+					{/* 記事タイトル */}
+					<div className="flex-1">
+						<h1
+							className="text-6xl font-bold leading-tight text-gray-900"
+							style={{
+								wordBreak: "break-word",
+								overflowWrap: "break-word",
+							}}
+							// biome-ignore lint/security/noDangerouslySetInnerHtml: BudouXで生成された安全なHTMLを使用
+							dangerouslySetInnerHTML={{ __html: formattedTitle }}
+						/>
+					</div>
+
+					{/* 下部エリア: 著者情報とサイト名 */}
+					<div className="flex items-end justify-between">
+						{/* 著者情報 */}
+						<div className="flex items-center gap-6">
+							{/* 著者アイコン */}
+							<img
+								src={config.authorIconUrl || "/default_icon512.png"}
+								alt={config.authorName}
+								className="size-24 rounded-full border-4 border-gray-100 object-cover shadow-md"
+							/>
+
+							{/* 著者名 */}
+							<span className="text-3xl font-semibold text-gray-700">
+								{config.authorName || "著者名"}
+							</span>
+						</div>
+
+						{/* サイト名 */}
+						<div className="text-right">
+							<div className="text-4xl font-bold text-purple-600">
+								{config.siteName || "サイト名"}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 
 	return (
 		<div className="space-y-4">
@@ -106,69 +162,36 @@ export default function OgpPreview({ config }: OgpPreviewProps) {
 							height: `${previewHeight}px`,
 						}}
 					>
-						{/* 実際のOGP画像（この要素が画像に変換される） */}
+						{/* プレビュー用のOGP画像（縮小表示） */}
 						<div
-							ref={previewRef}
 							style={{
 								width: `${width}px`,
 								height: `${height}px`,
 								transform: `scale(${scale})`,
 								transformOrigin: "top left",
 							}}
-							className="relative overflow-hidden bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500"
 						>
-							{/* 背景装飾 - 動的なグラデーション効果 */}
-							<div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(236,72,153,0.3),transparent_50%)]" />
-							<div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(168,85,247,0.4),transparent_60%)]" />
-							<div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.2),transparent_70%)]" />
-
-							{/* 白い角丸コンテンツボックス */}
-							<div className="relative flex h-full items-center justify-center p-16">
-								<div
-									className="flex h-full w-full flex-col justify-between rounded-3xl bg-white p-12 shadow-2xl"
-									style={{ fontFamily: '"LINE Seed JP", sans-serif' }}
-								>
-									{/* 記事タイトル */}
-									<div className="flex-1">
-										<h1
-											className="text-6xl font-bold leading-tight text-gray-900"
-											style={{
-												wordBreak: "break-word",
-												overflowWrap: "break-word",
-											}}
-											// biome-ignore lint/security/noDangerouslySetInnerHtml: BudouXで生成された安全なHTMLを使用
-											dangerouslySetInnerHTML={{ __html: formattedTitle }}
-										/>
-									</div>
-
-									{/* 下部エリア: 著者情報とサイト名 */}
-									<div className="flex items-end justify-between">
-										{/* 著者情報 */}
-										<div className="flex items-center gap-6">
-											{/* 著者アイコン */}
-											<img
-												src={config.authorIconUrl || "/default_icon512.png"}
-												alt={config.authorName}
-												className="size-24 rounded-full border-4 border-gray-100 object-cover shadow-md"
-											/>
-
-											{/* 著者名 */}
-											<span className="text-3xl font-semibold text-gray-700">
-												{config.authorName || "著者名"}
-											</span>
-										</div>
-
-										{/* サイト名 */}
-										<div className="text-right">
-											<div className="text-4xl font-bold text-purple-600">
-												{config.siteName || "サイト名"}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							{renderOgpContent()}
 						</div>
 					</div>
+				</div>
+			</div>
+
+			{/* 画像化用の非表示要素（transform無し） */}
+			<div
+				style={{
+					position: "fixed",
+					left: 0,
+					top: 0,
+					width: `${width}px`,
+					height: `${height}px`,
+					opacity: 0,
+					pointerEvents: "none",
+					zIndex: -1,
+				}}
+			>
+				<div ref={previewRef} style={{ width: `${width}px`, height: `${height}px` }}>
+					{renderOgpContent()}
 				</div>
 			</div>
 
