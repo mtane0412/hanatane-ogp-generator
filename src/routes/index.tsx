@@ -30,7 +30,9 @@ function App() {
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				{/* ページタイトル */}
 				<div className="mb-8 text-center">
-					<h1 className="text-4xl font-bold text-gray-900">OGP画像作成</h1>
+					<h1 className="text-4xl font-bold text-gray-900">
+						はなしのタネ OGPジェネレーター
+					</h1>
 					<p className="mt-2 text-gray-600">
 						ブログ用のOGP画像を簡単に作成・ダウンロードできます
 					</p>
@@ -51,7 +53,16 @@ function App() {
 
 				{/* フッター */}
 				<div className="mt-12 text-center text-sm text-gray-500">
-					<p>画像をダウンロードして、ブログのOGP設定に使用できます</p>
+					<p>
+						<a
+							href="https://hanatane.net"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-blue-600 hover:text-blue-800 underline"
+						>
+							はなしのタネ
+						</a>
+					</p>
 				</div>
 			</div>
 		</div>
